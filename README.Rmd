@@ -1,0 +1,208 @@
+---
+title: "Tipos de datos y su estructura"
+output: github_document
+
+---
+```{r}
+#Institución: Unidades Tecnológicas de Santander
+# Programa: Ingenieria en Topografía
+# Autor: "Aponte Saravia Jhonathan"
+```
+
+## Descripción del contexto
+
+A continuación, se presenta aplicaciones básicas de exploración de datos en lenguaje R, donde se comparten los códigos y las instrucciones para realizar operaciones elementales con datos de tipo caracter,  valores numéricos, aplicaciones de logica, con valores enteros.  El propósito de la guía, está dirigido a interesados que tengan afinidad a los programas de ingeniería, cuyo interés es la aproximación con el programa R Pakchage para desarrollar las habilidades en el uso, así mismo, es de circulación nacional sin enfoque diferencial.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+#El programa R tiene 6 tipos de datos basicos.
+#Caracter: "m", "n"
+
+#Numérico: (comprende a los valores entreros y decimales)
+#Interger: (un tipo de datos enteros)
+#Lógico: (en datos vectoriales puede estar asociado a FALSO Y VERDADERO)
+#Complejo: se refiera a la lectura de numeros complejos y reales y imaginarios. 
+
+#R el programa provee varias funciones para examinar los carateres de los objetos. 
+
+# class() - que tipo de objeto es?
+# typeof() - cual es el tipo de datos del objeto
+# length() - describe la longitud de los objetos 
+# attributes() - Que tiene en los metadatos.
+  
+
+```
+
+### Algunas aplicaciones de tipo caracter.
+Caracter: para distinguir el valor del caracter debe estar entre comillas.
+
+```{r}
+x <- c("Argentina", "Brasil", "Bolivia","Colombia ","Chile", "Perú")
+class(x)
+
+typeof(x)
+
+attributes(x)
+
+length(x)
+nchar(x)
+
+n <- "Jhonathan"
+ap <- "Aponte"
+am <- "Saravia"
+
+nc<- cbind(n,ap,am)
+nc
+
+paste("mi nombre completo es:",n,ap,am)
+
+# Otra forma de conectar los datos es utlizando la funcion colapso (_,.- etc)
+
+paste(x,collapse = ",")
+
+# Para subtraer los datos por ejemplo: 
+
+substr("Hola Perú",1, 4)
+
+substr("Hola Perú",5, 9)
+# Para reemplazar la cadena de caracteres
+
+gsub("u", "ú", "Hola Peru")
+
+# Para encontrar elementos que ajusten a un patrón 
+d <- c("az20", "az21", "az22", "ba30", "ba31", "ab32")
+i <- grep("ba", d)
+i
+# Para obervarlo
+d[i]
+# de otra forma
+
+grep("ba", d, value=TRUE)
+
+# Elementos que incluyen un caracter por ejemplo "2"
+grep("2",d)
+
+# Elementos que terminan en 2
+grep("2$",d)
+grep("2$",d, value = TRUE)
+
+# Elementos que comienza en a 
+grep("^a", d, value = TRUE)
+
+# Cambiar  miniscula a mayuscula 
+z <- letters
+z
+
+up <- toupper(z)
+up
+
+dow<- tolower(up)
+dow
+
+```
+### Aplicaciones con vectores númericos
+Formas de asignación 
+
+```{r}
+a <- c(10.4, 5.6, 3.1, 6.4, 21.7)
+a
+
+c(20.1, 7.6, 6.1, 10.4, 30.7) -> b
+b
+
+k <- 1/a
+k
+k1 <- a*b
+k1
+k2 <- a^b
+k2
+
+# cálculos aritmeticos
+
+v <- 2*a + b + 1
+v
+
+v1<- cbind(a,b)
+v1
+
+media<- sum(v1)/length(v1)
+media
+
+mean(v1)
+
+#extraer los valores que nos interesa
+
+c(min(v1), max(v1)); length(v1)
+
+# calculo donde integre todo los datos
+var1<- sum((v1-mean(v1))^2)/(length(v1)-1)
+var1
+# considerando cada columna
+var(v1)
+
+summary(v1)
+
+```
+Generación de sucesiones
+```{r}
+
+
+s <- 1:20
+s
+
+p <- pi:10
+
+z<- 15:1
+my_seq <- seq(5, 10, length=30)
+
+s4 <- seq(length=51, from=-5, by=.2)
+s4
+# Valores aleatorios 
+nn<- sample(1:100,10, replace=TRUE)
+
+
+## Agregando datos a valores faltantes 
+m <- c(12, NA, 18, 5, NA, 2,12, 8, 15, 18)
+m
+
+datalimp = na.omit(m)
+datalimp
+
+# reemplazando los datos numericos
+
+mediadata =mean(datalimp)
+m[is.na(m)]= mediadata
+m
+```
+Algunas aplicaciones con operadores lógicos 
+```{r}
+
+nombre <- c("Miguel", "Maria", "Maritza", "Juan", "Maira", "pedro", "patricia")
+varon <- c(1,0,0,1,0,1,0)
+nota <- c(13,17,9,14,6,10,15)
+
+data <- data.frame(nombre, varon, nota)
+head(data)
+
+data$varon==1
+data$varon
+
+data$nombre <- nombre== "Maira"
+head(data)
+
+
+data$nota <- !nota<15
+data$nota
+head(data)
+
+data$nota <- !nota>=13
+data$nota
+
+data$nombre <- nota <13 | varon==1
+data$nombre
+```
+
+
